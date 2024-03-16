@@ -1,9 +1,18 @@
 import express from 'express';
 import cors from 'cors';
 
+
 const app =express();
 app.use(express.json());
-app.use(cors());
+
+const corsOptions = {
+    origin: 'http://localhost:5173', // Replace this with your frontend URL
+    credentials: true,
+  };
+  
+  app.use(cors(corsOptions));
+
+
 import mongoose from 'mongoose';
 import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
@@ -14,8 +23,8 @@ mongoose.connect("mongodb+srv://vedant0711:Vedant0711@vedant.wedaith.mongodb.net
 ).catch((err)=>{
     console.log(err);
 })
-app.listen(8086,()=>{
-console.log("Server is listening on 8086!");
+app.listen(6969,()=>{
+console.log("Server is listening on 6969!");
 }
 );
 
