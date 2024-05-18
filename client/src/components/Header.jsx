@@ -26,11 +26,12 @@ export default function Header() {
         </form>
         <ul className='flex gap-4'>
           <li className=' sm:inline text-slate-700 hover:underline'>
-            <Link to='/'>Home</Link> {/* Use Link for routing */}
+            <Link to='/home'>Home</Link> {/* Use Link for routing */}
           </li>
           <li className=' sm:inline text-slate-700 hover:underline'>
             <Link to='/about'>About</Link> {/* Use Link for routing */}
           </li>
+          
           <Link to='/profile'>
             {currentUser ? (
               <img

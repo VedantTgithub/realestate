@@ -33,7 +33,7 @@ export default function OAuth() {
 
       const data = res.data;
       dispatch(signInSuccess(data));
-      navigate('/');
+      navigate('/home');
     } catch (error) {
       console.error('Could not sign in with Google:', error);
     }
