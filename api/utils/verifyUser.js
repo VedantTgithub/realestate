@@ -1,15 +1,21 @@
 import jwt from 'jsonwebtoken';
-import { errorHandler } from './error.js';
+import User from '../models/user.model.js';
 
-export const verifyToken = (req, res, next) => {
+export const verifyToken = async (req, res, next) => {
   const token = req.cookies.access_token;
+  if (!token) {
+    return res.status(401).json({ message: 'No token, authorization denied' });
+  }
 
-  if (!token) return next(errorHandler(401, 'Unauthorized'));
-
-  jwt.verify(token,'Vedant@123', (err, user) => {
-    if (err) return next(errorHandler(403, 'Forbidden'));
-
-    req.user = user;
+  try {
+    const decoded = jwt.verify(token, 'Vedant@123');
+    req.user = await User.findById(decoded.id).select('-password');
+    if (!req.user) {
+      return res.status(401).json({ message: 'User not found' });
+    }
     next();
-  });
+  } catch (error) {
+    console.error('Error verifying token:', error);
+    res.status(401).json({ message: 'Token is not valid' });
+  }
 };
